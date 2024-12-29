@@ -12,7 +12,7 @@ Inspired by fp-ts/Effect bind Do-notation, but much more small and simple <br/>
 Primarly created for easy mocking of functions, which allows to write tons of unit tests
 
 ```sh
-gleam add klubok_gleam@1
+gleam add klubok_gleam
 ```
 
 ```gleam
