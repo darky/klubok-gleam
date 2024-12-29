@@ -50,10 +50,13 @@ pub fn main() {
   // Should be used in unit tests
   cat_birthday(#(fn() { Cat("Marfa", 10) } |> Some, None) |> Some, None) // Cat("Marfa", 11)
 
-  // Call only first `eff` and second ignored
-  // E.g. no cat birthday today 😿
+  // Call only second `eff` and first IO ignored
+  // Also our birthday fn is mocked and our cat is kiten again
   //❗`only` is type unsafe and can lead to runtime errors when `Nil` passed instead of actual `eff` value
-  cat_birthday(None, set.from_list([0]) |> Some) // Cat("Barsik", 5)
+  cat_birthday(
+    #(None, fn() { Cat("Barsik", 1) } |> Some) |> Some,
+    set.from_list([1]) |> Some
+  ) // Cat("Barsik", 1)
 }
 ```
 
