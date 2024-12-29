@@ -14,10 +14,21 @@ jobs:
       - uses: actions/checkout@v4
       - uses: erlef/setup-beam@v1
         with:
-          otp-version: "27.1.2"
+          otp-version: "27.0.0"
           gleam-version: "1.6.3"
           rebar3-version: "3"
-          # elixir-version: "1.15.4"
+      - uses: denoland/setup-deno@v1
+        with:
+          deno-version: v2.x
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 23
+      - uses: oven-sh/setup-bun@v2
+        with:
+          bun-version: latest
       - run: gleam deps download
-      - run: gleam test
+      - run: gleam test --target erlang
+      - run: gleam test --target javascript --runtime node
+      - run: gleam test --target javascript --runtime deno
+      - run: gleam test --target javascript --runtime bun
       - run: gleam format --check src test
