@@ -17,7 +17,6 @@ gleam add klubok_gleam
 
 ```gleam
 import gleam/option.{None, Some}
-import gleam/set
 import klubok_gleam.{use_klubok2, eff}
 
 type Cat {
