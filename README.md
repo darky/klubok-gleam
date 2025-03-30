@@ -42,20 +42,29 @@ fn cat_birthday(mock, only) {
 }
 
 pub fn main() {
-  // Pass Option.None to mock and only
+  // Pass Option.None to mock and empty list to only
   // Should be used on production code
-  cat_birthday(None, None) // Cat("Barsik", 6)
+  cat_birthday(None, []) // Cat("Barsik", 6)
 
   // Mock first `eff` with another hardcoded cat
   // Should be used in unit tests
-  cat_birthday(#(fn() { Cat("Marfa", 10) } |> Some, None) |> Some, None) // Cat("Marfa", 11)
+  cat_birthday(
+    Some(#(
+      Some(fn() { Cat("Marfa", 10) }),
+      None
+    )),
+    []
+  ) // Cat("Marfa", 11)
 
   // Call only second `eff` and first IO ignored
   // Also our birthday fn is mocked and our cat is kiten again
   //❗`only` is type unsafe and can lead to runtime errors when `Nil` passed instead of actual `eff` value
   cat_birthday(
-    #(None, fn() { Cat("Barsik", 1) } |> Some) |> Some,
-    set.from_list([1]) |> Some
+    Some(#(
+      None,
+      Some(fn() { Cat("Barsik", 1) })
+    )),
+    [1]
   ) // Cat("Barsik", 1)
 }
 ```
