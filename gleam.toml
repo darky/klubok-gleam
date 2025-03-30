@@ -1,5 +1,5 @@
 name = "klubok_gleam"
-version = "0.1.0"
+version = "0.2.0"
 description = "Do notation pipes for functions which easy to mock"
 licences = ["MIT"]
 repository = { type = "github", user = "darky", repo = "klubok-gleam" }
