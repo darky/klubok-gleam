@@ -1,6 +1,5 @@
 import gleam/dynamic
 import gleam/option.{None, Some}
-import gleam/set
 import gleeunit
 import gleeunit/should
 import klubok_gleam.{eff, use_klubok2}
@@ -27,24 +26,21 @@ fn cat_new_age2(mock, only) {
 }
 
 pub fn klubok2_plain_test() {
-  cat_new_age2(None, None)
+  cat_new_age2(None, [])
   |> should.equal(Cat("Barsik", 6))
 }
 
 pub fn klubok2_mock_test() {
-  cat_new_age2(#(fn() { Cat("Marfa", 10) } |> Some, None) |> Some, None)
+  cat_new_age2(Some(#(Some(fn() { Cat("Marfa", 10) }), None)), [])
   |> should.equal(Cat("Marfa", 11))
 }
 
 pub fn klubok2_only_test() {
-  cat_new_age2(None, set.from_list([0]) |> Some)
+  cat_new_age2(None, [0])
   |> should.equal(Cat("Barsik", 5))
 }
 
 pub fn klubok2_mock_with_only_test() {
-  cat_new_age2(
-    #(None, fn() { Cat("Marik", 3) } |> Some) |> Some,
-    set.from_list([1]) |> Some,
-  )
+  cat_new_age2(Some(#(None, Some(fn() { Cat("Marik", 3) }))), [1])
   |> should.equal(Cat("Marik", 3))
 }
